@@ -42,7 +42,7 @@ Metadata:
 Mappings:
   SourceCode:
     General:
-      S3Bucket: 'solutions'
+      S3Bucket: 'solutions2'
       KeyPrefix: real-time-iot-device-monitoring-with-kinesis/latest
       LogPrefix: real-time-iot-device-monitoring-with-kinesis/
   KinesisAnalyticsApp:
