@@ -2,6 +2,8 @@
   "Parameters" : {
     "IoTTopicName" : "iot_device_analytics",
     "UserEmail" : "andreas.putz@mistywest.com",
-    "UserName" : "andput"
+    "UserName" : "andput",
+    "ResourcePrefix" : "",
+    "IotEndpoint" : "azeh5gfjxwn78.iot.us-west-2.amazonaws.com"
   }
 }
