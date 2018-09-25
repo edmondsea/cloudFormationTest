@@ -1,0 +1,7 @@
+{
+  "Parameters" : {
+    "IoTTopicName" : "iot_device_analytics",
+    "UserEmail" : "andreas.putz@mistywest.com",
+    "UserName" : "andput",
+  }
+}
