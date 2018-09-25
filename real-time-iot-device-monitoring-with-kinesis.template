@@ -42,7 +42,7 @@ Metadata:
 Mappings:
   SourceCode:
     General:
-      S3Bucket: 'solutions2'
+      S3Bucket: 'solutions'
       KeyPrefix: real-time-iot-device-monitoring-with-kinesis/latest
       LogPrefix: real-time-iot-device-monitoring-with-kinesis/
   KinesisAnalyticsApp:
@@ -53,7 +53,7 @@ Mappings:
     Scaling:
       ReadTargetUtilization: 70
       ReadCapacityMin: 1
-      ReadCapacityMax: 100
+      ReadCapacityMax: 101
       WriteTargetUtilization: 50
       WriteCapacityMin: 5
       WriteCapacityMax: 1000
