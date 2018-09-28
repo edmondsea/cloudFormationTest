@@ -1046,8 +1046,7 @@ Resources:
                 cognito-identity.amazonaws.com:aud: !Sub '${CognitoIdentityPool}'
               ForAnyValue:StringLike:
                 cognito-identity.amazonaws.com:amr: authenticated
-      ManagedPolicyArns:
-      	- arn:aws:iam::aws:policy/AWSIoTDataAccess
+      ManagedPolicyArns: ["arn:aws:iam::aws:policy/AWSIoTDataAccess"]
       Path: /
       Policies:
 
@@ -1057,7 +1056,7 @@ Resources:
             Version: '2012-10-17'
             Statement:
               - Effect: Allow
-                Action:
+                Action:ManagedPolicyArns
                   - mobileanalytics:PutEvents
                   - cognito-identity:*
                 Resource: !Sub 'arn:aws:cognito-identity:${AWS::Region}:${AWS::AccountId}:identitypool/${CognitoIdentityPool}'
