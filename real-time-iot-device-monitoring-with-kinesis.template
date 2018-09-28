@@ -1056,7 +1056,7 @@ Resources:
             Version: '2012-10-17'
             Statement:
               - Effect: Allow
-                Action:ManagedPolicyArns
+                Action:
                   - mobileanalytics:PutEvents
                   - cognito-identity:*
                 Resource: !Sub 'arn:aws:cognito-identity:${AWS::Region}:${AWS::AccountId}:identitypool/${CognitoIdentityPool}'
