@@ -1283,21 +1283,21 @@ Resources:
       Roles:
        - !Ref CustomResourceHelperRole
 
-   WebAppPolicy:
-     Type: "AWS::IoT::Policy"
-     Properties:
-       PolicyName: IotWebPolicy
-       PolicyDocument:
-         Version: "2012-10-17"
-         Statement:
-           - Effect: "Allow"
-             Action:
-               - "iot:Connect"
-               - "iot:Publish"
-               - "iot:GetThingShadow"
-               - "iot:UpdateThingShadow"
-             Resource:
-                - "*"
+  WebAppPolicy:
+    Type: "AWS::IoT::Policy"
+    Properties:
+      PolicyName: IotWebPolicy
+      PolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: "Allow"
+            Action:
+              - "iot:Connect"
+              - "iot:Publish"
+              - "iot:GetThingShadow"
+              - "iot:UpdateThingShadow"
+            Resource:
+              - "*"
 
 
 # Custom Resource Invocations
