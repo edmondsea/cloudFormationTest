@@ -69,6 +69,19 @@ Mappings:
       Version: 1.0.0
       SendAnonymousUsageData: 'True'
 
+
+functions:
+  AttachIotPolicy:
+    handler: attachIotPolicy.main
+    events:
+      - http:
+          path: policy/attach_iot_policy
+          method: post
+          cors: true
+          authorizer: aws_iam
+
+
+
 Resources:
   IoTMetricsLogGroup:
     Type: AWS::Logs::LogGroup
@@ -1269,6 +1282,23 @@ Resources:
               - !Sub 'arn:aws:kinesisanalytics:${AWS::Region}:${AWS::AccountId}:application/${KinesisAnalyticsApp}'
       Roles:
        - !Ref CustomResourceHelperRole
+
+   WebAppPolicy:
+     Type: "AWS::IoT::Policy"
+     Properties:
+       PolicyName: IotWebPolicy
+       PolicyDocument:
+         Version: "2012-10-17"
+         Statement:
+           - Effect: "Allow"
+             Action:
+               - "iot:Connect"
+               - "iot:Publish"
+               - "iot:GetThingShadow"
+               - "iot:UpdateThingShadow"
+             Resource:
+                - "*"
+
 
 # Custom Resource Invocations
   GenerateUUID:
