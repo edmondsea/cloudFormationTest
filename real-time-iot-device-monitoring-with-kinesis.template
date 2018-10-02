@@ -1405,7 +1405,7 @@ Resources:
         ZipFile: |
             exports.handler = function(event, context, callback) {
                 var testData = getTestData();
-                callback(null, { "statusCode" : 200, "body" : "sucess" });
+                callback(null, { "statusCode" : 200, "body" : JSON.stringify("sucess" )});
                 #JSON.stringify((testData))});
             };
              
