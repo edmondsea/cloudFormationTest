@@ -1409,7 +1409,7 @@ Resources:
             };
              
             function getTestData() {
-                var test= [ "success" ];
+                var test= [  [ "aaa", "bbb", "ccc", "ddd", "eee", "fff", "ggg" ];
                 return test.sort(() => .5 - Math.random()); // random sort just to see that the data is not cached somehow
             }
       Description: "My function"
