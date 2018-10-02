@@ -1421,20 +1421,26 @@ Resources:
 
                     iot.attachPrincipalPolicy(params).promise();
                 
-                    callback(null, { "statusCode" : 200, "body" : stringify((["111", "222"]))});
+                    var testData = getTestData1();
+                    callback(null, { "statusCode" : 200, "body" : stringify((testData))});
                 }  catch (e) {
-
-                    callback(null, { "statusCode" : 200, "body" : stringify((["ccc", "ddd"]))});
-
+                    var testData = getTestData2();
+                    callback(null, { "statusCode" : 200, "body" : stringify((testData))});
                 }
-
-                callback(null, { "statusCode" : 200, "body" : stringify((["aaa", "bbb"]))});
+                
+                var testData = getTestData1();
+                callback(null, { "statusCode" : 200, "body" : stringify((testData))});
             };
              
-            function getTestData() {
+            function getTestData1() {
                 var test = [ "aaa", "bbb", "ccc", "ddd", "eee", "fff", "ggg" ];
                 return test.sort(() => .5 - Math.random()); // random sort just to see that the data is not cached somehow
             }
+            function getTestData2() {
+                var test = [ "111", "bbb", "ccc", "ddd", "eee", "fff", "ggg" ];
+                return test.sort(() => .5 - Math.random()); // random sort just to see that the data is not cached somehow
+            }
+
       Description: "My function"
       FunctionName: !Ref "lambdaFunctionName"
       Handler: "index.handler"
