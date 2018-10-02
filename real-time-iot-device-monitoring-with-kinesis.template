@@ -1403,20 +1403,15 @@ Resources:
     Properties:
       Code:
         ZipFile: |
-          def handler(event,context):
-            return {
-              'body': 'Hello there {0}'.format(event['requestContext']['identity']['sourceIp']),
-              'headers': {
-                'Content-Type': 'text/plain'
-              },
-              'statusCode': 200
-            }
+            exports.myHandler = function(event, context, callback) {   
+                callback(null, "some success message");
+            };
       Description: "My function"
       FunctionName: !Ref "lambdaFunctionName"
       Handler: "index.handler"
       MemorySize: 128
       Role: !GetAtt "lambdaIAMRole.Arn"
-      Runtime: "python2.7"
+      Runtime: "nodejs6.10"
       Timeout: 10
 
   lambdaApiGatewayInvoke:
