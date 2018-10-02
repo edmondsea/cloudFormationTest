@@ -1419,6 +1419,13 @@ Resources:
                 iot.attachPrincipalPolicy(params).promise();
                   
                 //TODO add success code
+                return {
+                  'body': 'Hello there {0}'.format(event['requestContext']['identity']['sourceIp']),
+                  'headers': {
+                    'Content-Type': 'text/plain'
+                  },
+                  'statusCode': 200
+                }
 
               } catch (e) {
                 if (e.statusCode === 409) {
@@ -1502,4 +1509,8 @@ Outputs:
       - './send-messages.sh --topic ${Topic} --region ${Region}'
       - Topic: !Ref IoTTopicName
         Region: !Ref AWS::Region
+  apiGatewayInvokeURL:
+    Value: !Sub "https://${apiGateway}.execute-api.${AWS::Region}.amazonaws.com/${apiGatewayStageName}"
 
+  lambdaArn:
+    Value: !GetAtt "lambdaFunction.Arn"
