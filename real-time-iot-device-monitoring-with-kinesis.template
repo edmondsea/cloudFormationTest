@@ -1403,18 +1403,20 @@ Resources:
     Properties:
       Code:
         ZipFile: |
-
-            import AWS from 'aws-sdk';
-
-            exports.myHandler = function(event, context, callback) {   
-                callback(null, "some success message");
-            };
+          def handler(event,context):
+            return {
+              'body': 'Hello there {0}'.format(event['requestContext']['identity']['sourceIp']),
+              'headers': {
+                'Content-Type': 'text/plain'
+              },
+              'statusCode': 200
+            }
       Description: "My function"
       FunctionName: !Ref "lambdaFunctionName"
       Handler: "index.handler"
       MemorySize: 128
       Role: !GetAtt "lambdaIAMRole.Arn"
-      Runtime: "nodejs6.10"
+      Runtime: "python2.7"
       Timeout: 10
 
   lambdaApiGatewayInvoke:
