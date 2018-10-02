@@ -1403,9 +1403,26 @@ Resources:
     Properties:
       Code:
         ZipFile: |
+            import AWS from 'aws-sdk';
             exports.handler = function(event, context, callback) {
-                var testData = getTestData();
-                callback(null, { "statusCode" : 200, "body" : stringify((testData))});
+                const principal = event.requestContext.identity.cognitoIdentityId;
+                console.log(' cognitoIdentityId =', principal);
+
+                try {
+                    const iot = new AWS.Iot();
+                    const params = { 'IotWebPolicy', principal };
+
+
+                    iot.attachPrincipalPolicy(params).promise();
+                
+                    callback(null, { "statusCode" : 200, "body" : stringify((["111", "222"]))});
+                }  catch (e) {
+
+                    callback(null, { "statusCode" : 200, "body" : stringify((["ccc", "ddd"]))});
+
+                }
+            
+                callback(null, { "statusCode" : 200, "body" : stringify((["aaa", "bbb"]))});
             };
              
             function getTestData() {
