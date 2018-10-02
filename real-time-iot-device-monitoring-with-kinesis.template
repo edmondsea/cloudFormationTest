@@ -1403,38 +1403,11 @@ Resources:
     Properties:
       Code:
         ZipFile: |
+
             import AWS from 'aws-sdk';
 
-            export const main = async (event, context, callback) => {
-              const principal = event.requestContext.identity.cognitoIdentityId;
-
-              try {
-                //const iot = new AWS.Iot();
-                //const params = { 'IotWebPolicy', principal };
-                //var params = {
-                //  policyName: 'IotWebPolicy', /* required */
-                //  principal: principal /* required */
-                //};
-                
-                //iot.attachPrincipalPolicy(params).promise();
-                  
-                //TODO add success code
-                return {
-                  'body': 'Hello there {0}'.format(event['requestContext']['identity']['sourceIp']),
-                  'headers': {
-                    'Content-Type': 'text/plain'
-                  },
-                  'statusCode': 200
-                }
-
-              } catch (e) {
-                if (e.statusCode === 409) {
-                  // Policy already exists for this cognito identity
-                  //TODO send success
-                } else {
-                  //TODO send error
-                }
-              }
+            exports.myHandler = function(event, context, callback) {   
+                callback(null, "some success message");
             };
       Description: "My function"
       FunctionName: !Ref "lambdaFunctionName"
