@@ -1403,14 +1403,20 @@ Resources:
     Properties:
       Code:
         ZipFile: |
-            import AWS from 'aws-sdk';
+            var AWS = require('aws-sdk');
+
             exports.handler = function(event, context, callback) {
                 const principal = event.requestContext.identity.cognitoIdentityId;
                 console.log(' cognitoIdentityId =', principal);
 
                 try {
                     const iot = new AWS.Iot();
-                    const params = { 'IotWebPolicy', principal };
+                    
+                    var params = {
+                        policyName: 'IotWebPolicy', /* required */
+                        principal: principal /* required */
+                    };
+                    //const params = { 'IotWebPolicy', principal };
 
 
                     iot.attachPrincipalPolicy(params).promise();
@@ -1421,12 +1427,12 @@ Resources:
                     callback(null, { "statusCode" : 200, "body" : stringify((["ccc", "ddd"]))});
 
                 }
-            
+
                 callback(null, { "statusCode" : 200, "body" : stringify((["aaa", "bbb"]))});
             };
              
             function getTestData() {
-                var test= [  [ "aaa", "bbb", "ccc", "ddd", "eee", "fff", "ggg" ];
+                var test = [ "aaa", "bbb", "ccc", "ddd", "eee", "fff", "ggg" ];
                 return test.sort(() => .5 - Math.random()); // random sort just to see that the data is not cached somehow
             }
       Description: "My function"
