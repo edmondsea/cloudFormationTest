@@ -1403,18 +1403,22 @@ Resources:
     Properties:
       Code:
         ZipFile: |
+            import AWS from 'aws-sdk';
+
             export const main = async (event, context, callback) => {
               const principal = event.requestContext.identity.cognitoIdentityId;
 
               try {
                 const iot = new AWS.Iot();
-                const params = { 'IotWebPolicy', principal };
+                //const params = { 'IotWebPolicy', principal };
+                var params = {
+                  policyName: 'IotWebPolicy', /* required */
+                  principal: principal /* required */
+                };
+                
                 iot.attachPrincipalPolicy(params).promise();
                   
-                responseValue = 0
-                responseData = {}
-                responseData['Data'] = responseValue
-                cfnresponse.send(event, context, cfnresponse.SUCCESS, responseData, "Success response ")
+                //TODO add success code
 
               } catch (e) {
                 if (e.statusCode === 409) {
