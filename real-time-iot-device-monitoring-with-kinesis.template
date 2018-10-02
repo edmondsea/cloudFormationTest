@@ -1409,14 +1409,14 @@ Resources:
               const principal = event.requestContext.identity.cognitoIdentityId;
 
               try {
-                const iot = new AWS.Iot();
+                //const iot = new AWS.Iot();
                 //const params = { 'IotWebPolicy', principal };
-                var params = {
-                  policyName: 'IotWebPolicy', /* required */
-                  principal: principal /* required */
-                };
+                //var params = {
+                //  policyName: 'IotWebPolicy', /* required */
+                //  principal: principal /* required */
+                //};
                 
-                iot.attachPrincipalPolicy(params).promise();
+                //iot.attachPrincipalPolicy(params).promise();
                   
                 //TODO add success code
                 return {
