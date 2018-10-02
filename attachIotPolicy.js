@@ -6,19 +6,29 @@ export const POLICY_NAME = 'IotWebPolicy';
 /**
  * Attach a policy to the Cognito Identity to allow it to connect to IoT
  */
+
+import json
+import cfnresponse
+
 export const main = async (event, context, callback) => {
   const principal = event.requestContext.identity.cognitoIdentityId;
 
   try {
-    await iot.attachPrincipalPolicy(POLICY_NAME, principal);
-    callback(null, success({ status: true }));
+    const iot = new AWS.Iot();
+    const params = { 'IotWebPolicy', principal };
+    iot.attachPrincipalPolicy(params).promise();
+      
+    responseValue = 0
+    responseData = {}
+    responseData['Data'] = responseValue
+    cfnresponse.send(event, context, cfnresponse.SUCCESS, responseData, "Success response ")
+
   } catch (e) {
     if (e.statusCode === 409) {
       // Policy already exists for this cognito identity
-      callback(null, success({ status: true }));
+      //TODO send success
     } else {
-      console.log(e);
-      callback(null, failure({ status: false, error: e }));
+      //TODO send error
     }
   }
 };
