@@ -1405,12 +1405,11 @@ Resources:
         ZipFile: |
             exports.handler = function(event, context, callback) {
                 var testData = getTestData();
-                callback(null, { "statusCode" : 200, "body" : JSON.stringify("sucess" )});
-                #JSON.stringify((testData))});
+                callback(null, { "statusCode" : 200, "body" : stringify((testData))});
             };
              
             function getTestData() {
-                var test= [ "aaa", "bbb", "ccc", "ddd", "eee", "fff", "ggg" ];
+                var test= [ "success" ];
                 return test.sort(() => .5 - Math.random()); // random sort just to see that the data is not cached somehow
             }
       Description: "My function"
