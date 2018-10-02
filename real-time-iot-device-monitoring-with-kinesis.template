@@ -1404,7 +1404,7 @@ Resources:
       Code:
         ZipFile: |
             //import AWS from 'aws-sdk';
-            exports.handler = function(event, context, callback) => {
+            exports.handler = function(event, context, callback) {
               //const principal = event.requestContext.identity.cognitoIdentityId;
                try {
                 //const iot = new AWS.Iot();
