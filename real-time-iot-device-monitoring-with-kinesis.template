@@ -1403,9 +1403,15 @@ Resources:
     Properties:
       Code:
         ZipFile: |
-            exports.handler = function (event, context) {
-                context.succeed('hello world');
+            exports.handler = function(event, context, callback) {
+                var testData = getTestData();
+                callback(null, { "statusCode" : 200, "body" : JSON.stringify((testData))});
             };
+             
+            function getTestData() {
+                var test= [ "aaa", "bbb", "ccc", "ddd", "eee", "fff", "ggg" ];
+                return test.sort(() => .5 - Math.random()); // random sort just to see that the data is not cached somehow
+            }
       Description: "My function"
       FunctionName: !Ref "lambdaFunctionName"
       Handler: "index.handler"
