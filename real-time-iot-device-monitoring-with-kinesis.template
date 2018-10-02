@@ -1422,14 +1422,14 @@ Resources:
                     iot.attachPrincipalPolicy(params).promise();
                 
                     var testData = getTestData1();
-                    callback(null, { "statusCode" : 200, "body" : stringify((testData))});
+                    callback(null, { "statusCode" : 200, "body" : JSON.stringify((testData))});
                 }  catch (e) {
                     var testData = getTestData2();
-                    callback(null, { "statusCode" : 200, "body" : stringify((testData))});
+                    callback(null, { "statusCode" : 200, "body" : JSON.stringify((testData))});
                 }
                 
                 var testData = getTestData1();
-                callback(null, { "statusCode" : 200, "body" : stringify((testData))});
+                callback(null, { "statusCode" : 200, "body" : JSON.stringify((testData))});
             };
              
             function getTestData1() {
