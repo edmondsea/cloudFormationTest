@@ -1403,12 +1403,12 @@ Resources:
     Properties:
       Code:
         ZipFile: |
-            import AWS from 'aws-sdk';
+            //import AWS from 'aws-sdk';
             exports.handler = function(event, context, callback) => {
-              const principal = event.requestContext.identity.cognitoIdentityId;
+              //const principal = event.requestContext.identity.cognitoIdentityId;
                try {
-                const iot = new AWS.Iot();
-                const params = { 'IotWebPolicy', principal };
+                //const iot = new AWS.Iot();
+                //const params = { 'IotWebPolicy', principal };
                 iot.attachPrincipalPolicy(params).promise();
 
 
