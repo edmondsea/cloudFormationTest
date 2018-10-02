@@ -1409,7 +1409,7 @@ Resources:
                try {
                 //const iot = new AWS.Iot();
                 //const params = { 'IotWebPolicy', principal };
-                iot.attachPrincipalPolicy(params).promise();
+                //iot.attachPrincipalPolicy(params).promise();
 
 
                 var test= [ "yes", "sucesss1"];
