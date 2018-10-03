@@ -1379,7 +1379,8 @@ Resources:
   apiGatewayRootMethod:
     Type: "AWS::ApiGateway::Method"
     Properties:
-      AuthorizationType: "NONE"
+      AuthorizationType: AWS_IAM 
+      #AuthorizationType: "NONE"
       HttpMethod: "POST"
       Integration:
         IntegrationHttpMethod: "POST"
