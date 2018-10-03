@@ -1094,6 +1094,14 @@ Resources:
                 #TODO
                 Resource: { "Fn::Join" : ["", ["arn:aws:execute-api:",{"Ref":"AWS::Region"},":",{"Ref":"AWS::AccountId"} ]] }
                 # ,":",{"Ref":"ApiGatewayRestApi"},"/*"]] }
+        - PolicyName : AttachIotPolicy
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Allow
+                Action:
+                    - iot:AttachPolicy 
+            Resource:
+              - "*"
 
   UnauthenticatedUserRole:
     Type: AWS::IAM::Role
