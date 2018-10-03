@@ -1379,9 +1379,7 @@ Resources:
   apiGatewayRootMethod:
     Type: "AWS::ApiGateway::Method"
     Properties:
-      #TODO
-      #AuthorizationType: "NONE"
-      AuthorizationType: AWS_IAM  #sets authorization to AWS_IAM
+      AuthorizationType: "NONE"
       HttpMethod: "POST"
       Integration:
         IntegrationHttpMethod: "POST"
@@ -1389,8 +1387,6 @@ Resources:
         Uri: !Sub
           - "arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${lambdaArn}/invocations"
           - lambdaArn: !GetAtt "lambdaFunction.Arn"
-        Integration:
-            Credentials: 'arn:aws:iam::*:user/*' #sets "Invoke with caller credentials" to true
       ResourceId: !GetAtt "apiGateway.RootResourceId"
       RestApiId: !Ref "apiGateway"
 
