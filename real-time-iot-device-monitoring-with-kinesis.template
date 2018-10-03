@@ -1387,6 +1387,8 @@ Resources:
         Uri: !Sub
           - "arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${lambdaArn}/invocations"
           - lambdaArn: !GetAtt "lambdaFunction.Arn"
+        Integration:
+            Credentials: 'arn:aws:iam::*:user/*' #sets "Invoke with caller credentials" to true
       ResourceId: !GetAtt "apiGateway.RootResourceId"
       RestApiId: !Ref "apiGateway"
 
