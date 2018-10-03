@@ -1406,6 +1406,17 @@ Resources:
             var AWS = require('aws-sdk');
 
             exports.handler = function(event, context, callback) {
+
+                console.log('functionName =', context.functionName);
+                console.log('AWSrequestID =', context.awsRequestId);
+                console.log('logGroupName =', context.log_group_name);
+                console.log('logStreamName =', context.log_stream_name);
+                console.log('clientContext =', context.clientContext);
+                if (typeof context.identity !== 'undefined') {
+                    console.log('Cognito
+                    identity ID =', context.identity.cognitoIdentityId);
+                }   
+
                 const principal = event.requestContext.identity.cognitoIdentityId;
                 console.log(' cognitoIdentityId =', principal);
 
