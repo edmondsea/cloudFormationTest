@@ -1101,8 +1101,8 @@ Resources:
               - Effect: Allow
                 Action:
                     - iot:AttachPolicy 
-            Resource:
-              - "*"
+                Resource:
+                    - "*"
 
   UnauthenticatedUserRole:
     Type: AWS::IAM::Role
