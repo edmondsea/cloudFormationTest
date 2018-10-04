@@ -28,6 +28,9 @@ Parameters:
     Type: "String"
     AllowedPattern: "^[a-zA-Z0-9]+[a-zA-Z0-9-]+[a-zA-Z0-9]+$"
     Default: "get-devices"
+  apiDeploymentName:
+    Default: "deploy"
+    
 
 Metadata:
   AWS::CloudFormation::Interface:
@@ -1418,13 +1421,13 @@ Resources:
       Type: "COGNITO_USER_POOLS"
 
 
-#  apiGatewayDeployment:
-#    Type: "AWS::ApiGateway::Deployment"
-#    DependsOn:
-#      - "apiGatewayRootMethod"
-#    Properties:
-#      RestApiId: !Ref "apiGateway"
-#      StageName: !Ref "apiGatewayGetDevicesName"
+  apiGatewayDeployment:
+    Type: "AWS::ApiGateway::Deployment"
+    DependsOn:
+      - "apiGatewayRootMethod"
+    Properties:
+      RestApiId: !Ref "apiGateway"
+      StageName: !Ref apiDeploymentName
 
   lambdaFunction:
     Type: "AWS::Lambda::Function"
@@ -1451,7 +1454,7 @@ Resources:
       Action: "lambda:InvokeFunction"
       FunctionName: !GetAtt "lambdaFunction.Arn"
       Principal: "apigateway.amazonaws.com"
-      SourceArn: !Sub "arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:${apiGateway}/*/POST/"
+      SourceArn: !Sub "arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:${apiGateway}/*/*/*/"
 
   lambdaIAMRole:
     Type: "AWS::IAM::Role"
