@@ -1380,12 +1380,12 @@ Resources:
       Description: "My API"
 
 
-  "getDevicesResource": {
-    "Type": "AWS::ApiGateway::Resource",
-    "Properties": {
-      "RestApiId": {"Ref": "apiGateway"},
-      "ParentId": {"Fn::GetAtt": ["apiGateway", "RootResourceId"]},
-      "PathPart": !Ref "apiGatewayGetDevicesName"
+  getDevicesResource: {
+    Type": "AWS::ApiGateway::Resource",
+    Properties": {
+      RestApiId: !Ref: "apiGateway",
+      ParentId: !GetAtt apiGateway.RootResourceId,
+      PathPart: !Ref apiGatewayGetDevicesName
     }
   }  
 
