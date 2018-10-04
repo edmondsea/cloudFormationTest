@@ -24,10 +24,10 @@ Parameters:
   apiGatewayConfigXmlName:
     Type: "String"
     Default: "config-device"
-  lambdaFunctionName:
+  lambdaGetDevicesName:
     Type: "String"
     AllowedPattern: "^[a-zA-Z0-9]+[a-zA-Z0-9-]+[a-zA-Z0-9]+$"
-    Default: "my-function"
+    Default: "get-devices"
 
 Metadata:
   AWS::CloudFormation::Interface:
@@ -1422,57 +1422,14 @@ Resources:
     Properties:
       Code:
         ZipFile: |
-            var AWS = require('aws-sdk');
-
-            exports.handler = function(event, context, callback) {
-
-                console.log('functionName =', context.functionName);
-                console.log('AWSrequestID =', context.awsRequestId);
-                console.log('logGroupName =', context.log_group_name);
-                console.log('logStreamName =', context.log_stream_name);
-                console.log('clientContext =', context.clientContext);
-                if (typeof context.identity !== 'undefined') {
-                    console.log('Cognito
-                    identity ID =', context.identity.cognitoIdentityId);
-                }   
-
-                const principal = event.requestContext.identity.cognitoIdentityId;
-                console.log(' cognitoIdentityId =', principal);
-
-                try {
-                    const iot = new AWS.Iot();
-                    
-                    var params = {
-                        policyName: 'IotWebPolicy', /* required */
-                        principal: principal /* required */
-                    };
-                    //const params = { 'IotWebPolicy', principal };
-
-
-                    iot.attachPrincipalPolicy(params).promise();
-                
-                    var testData = getTestData1();
-                    callback(null, { "statusCode" : 200, "body" : JSON.stringify((testData))});
-                }  catch (e) {
-                    var testData = getTestData2();
-                    callback(null, { "statusCode" : 200, "body" : JSON.stringify((testData))});
-                }
-                
-                var testData = getTestData1();
-                callback(null, { "statusCode" : 200, "body" : JSON.stringify((testData))});
-            };
-             
-            function getTestData1() {
-                var test = [ "aaa", "bbb", "ccc", "ddd", "eee", "fff", "ggg" ];
-                return test.sort(() => .5 - Math.random()); // random sort just to see that the data is not cached somehow
+            exports.handler = function(event, context, callback) {   
+                var functionName = context.functionName;
+                var returnStr = `Function : ${functionName} is under development`;
+                console.log(returnStr)
+                callback(null, { "statusCode" : 200, "body" : JSON.stringify((returnStr))});
             }
-            function getTestData2() {
-                var test = [ "111", "bbb", "ccc", "ddd", "eee", "fff", "ggg" ];
-                return test.sort(() => .5 - Math.random()); // random sort just to see that the data is not cached somehow
-            }
-
       Description: "My function"
-      FunctionName: !Ref "lambdaFunctionName"
+      FunctionName: !Ref "lambdaGetDevicesName"
       Handler: "index.handler"
       MemorySize: 128
       Role: !GetAtt "lambdaIAMRole.Arn"
@@ -1509,13 +1466,13 @@ Resources:
                   - "logs:PutLogEvents"
                 Effect: "Allow"
                 Resource:
-                  - !Sub "arn:aws:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/${lambdaFunctionName}:*"
+                  - !Sub "arn:aws:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/${lambdaGetDevicesName}:*"
           PolicyName: "lambda"
 
   lambdaLogGroup:
     Type: "AWS::Logs::LogGroup"
     Properties:
-      LogGroupName: !Sub "/aws/lambda/${lambdaFunctionName}"
+      LogGroupName: !Sub "/aws/lambda/${lambdaGetDevicesName}"
       RetentionInDays: 90
 
 
