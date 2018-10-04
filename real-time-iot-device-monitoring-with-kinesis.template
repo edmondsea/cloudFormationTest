@@ -1381,7 +1381,7 @@ Resources:
 
 
   getDevicesResource:
-    Type": "AWS::ApiGateway::Resource"
+    Type: "AWS::ApiGateway::Resource"
     Properties:
       RestApiId: !Ref apiGateway
       ParentId: !GetAtt apiGateway.RootResourceId
