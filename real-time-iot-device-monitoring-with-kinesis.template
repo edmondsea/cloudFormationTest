@@ -1400,17 +1400,17 @@ Resources:
           - lambdaArn: !GetAtt "lambdaFunction.Arn"
       ResourceId: !GetAtt "apiGateway.RootResourceId"
       RestApiId: !Ref "apiGateway"
-
-   ApiAuthorizer: 
-     Type: "AWS::ApiGateway::Authorizer"
-     Properties: 
-       AuthorizerResultTtlInSeconds: 300
-       IdentitySource: method.request.header.Authorization
-       Name: CognitoDefaultUserPoolAuthorizer
-       ProviderARNs: 
-         - !ImportValue DefaultUserPool::Arn
-       RestApiId: !Ref apiGateway
-       Type: "COGNITO_USER_POOLS"
+ 
+  ApiAuthorizer: 
+    Type: "AWS::ApiGateway::Authorizer"
+    Properties: 
+      AuthorizerResultTtlInSeconds: 300
+      IdentitySource: method.request.header.Authorization
+      Name: CognitoDefaultUserPoolAuthorizer
+      ProviderARNs: 
+        - !ImportValue DefaultUserPool::Arn
+      RestApiId: !Ref apiGateway
+      Type: "COGNITO_USER_POOLS"
 
 
   apiGatewayDeployment:
