@@ -1390,7 +1390,7 @@ Resources:
           - RootResourceId
       PathPart: !Ref "apiGatewayGetDevicesName"
 
-  //TODO change to GET
+  #TODO change to GET
   apiGatewayRootMethod:
     Type: "AWS::ApiGateway::Method"
     Properties:
