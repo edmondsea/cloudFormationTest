@@ -29,6 +29,7 @@ Parameters:
     AllowedPattern: "^[a-zA-Z0-9]+[a-zA-Z0-9-]+[a-zA-Z0-9]+$"
     Default: "get-devices"
   apiDeploymentName:
+    Type: "String"
     Default: "deploy"
     
 
