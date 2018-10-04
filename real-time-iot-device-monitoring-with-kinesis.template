@@ -1389,8 +1389,8 @@ Resources:
   apiGatewayRootMethod:
     Type: "AWS::ApiGateway::Method"
     Properties:
-      #AuthorizationType: AWS_IAM 
-      AuthorizationType: "NONE"
+      AuthorizationType: COGNITO_USER_POOLS
+      AuthorizerId: !Ref ApiAuthorizer
       HttpMethod: "POST"
       Integration:
         IntegrationHttpMethod: "POST"
@@ -1400,6 +1400,18 @@ Resources:
           - lambdaArn: !GetAtt "lambdaFunction.Arn"
       ResourceId: !GetAtt "apiGateway.RootResourceId"
       RestApiId: !Ref "apiGateway"
+
+   ApiAuthorizer: 
+     Type: "AWS::ApiGateway::Authorizer"
+     Properties: 
+       AuthorizerResultTtlInSeconds: 300
+       IdentitySource: method.request.header.Authorization
+       Name: CognitoDefaultUserPoolAuthorizer
+       ProviderARNs: 
+         - !ImportValue DefaultUserPool::Arn
+       RestApiId: !Ref apiGateway
+       Type: "COGNITO_USER_POOLS"
+
 
   apiGatewayDeployment:
     Type: "AWS::ApiGateway::Deployment"
