@@ -1418,13 +1418,13 @@ Resources:
       Type: "COGNITO_USER_POOLS"
 
 
-//  apiGatewayDeployment:
-//    Type: "AWS::ApiGateway::Deployment"
-//    DependsOn:
-//      - "apiGatewayRootMethod"
-//    Properties:
-//      RestApiId: !Ref "apiGateway"
-//      StageName: !Ref "apiGatewayGetDevicesName"
+#  apiGatewayDeployment:
+#    Type: "AWS::ApiGateway::Deployment"
+#    DependsOn:
+#      - "apiGatewayRootMethod"
+#    Properties:
+#      RestApiId: !Ref "apiGateway"
+#      StageName: !Ref "apiGatewayGetDevicesName"
 
   lambdaFunction:
     Type: "AWS::Lambda::Function"
