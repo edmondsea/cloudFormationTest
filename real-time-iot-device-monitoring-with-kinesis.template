@@ -1287,7 +1287,7 @@ Resources:
   WebAppPolicy:
     Type: "AWS::IoT::Policy"
     Properties:
-      PolicyName: IotWebPolicy
+      PolicyName: IotWebAppPolicy
       PolicyDocument:
         Version: "2012-10-17"
         Statement:
