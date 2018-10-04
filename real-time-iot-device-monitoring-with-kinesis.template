@@ -1384,8 +1384,11 @@ Resources:
     Type: "AWS::ApiGateway::Resource"
     Properties:
       RestApiId: !Ref apiGateway
-      ParentId: !GetAtt apiGateway.RootResourceId
-      PathPart: !Ref apiGatewayGetDevicesName 
+      ParentId:
+        Fn::GetAtt:
+          - apiGateway
+          - RootResourceId
+      PathPart: !Ref "apiGatewayGetDevicesName"
 
   //TODO change to GET
   apiGatewayRootMethod:
