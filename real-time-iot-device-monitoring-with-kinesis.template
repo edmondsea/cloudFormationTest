@@ -1379,6 +1379,17 @@ Resources:
       Name: "my-api"
       Description: "My API"
 
+
+  "getDevicesResource": {
+    "Type": "AWS::ApiGateway::Resource",
+    "Properties": {
+      "RestApiId": {"Ref": "apiGateway"},
+      "ParentId": {"Fn::GetAtt": ["apiGateway", "RootResourceId"]},
+      "PathPart": !Ref "apiGatewayGetDevicesName"
+    }
+  }  
+
+  //TODO change to GET
   apiGatewayRootMethod:
     Type: "AWS::ApiGateway::Method"
     Properties:
@@ -1391,7 +1402,7 @@ Resources:
         Uri: !Sub
           - "arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${lambdaArn}/invocations"
           - lambdaArn: !GetAtt "lambdaFunction.Arn"
-      ResourceId: !GetAtt "apiGateway.RootResourceId"
+      ResourceId": !Ref getDevicesResource
       RestApiId: !Ref "apiGateway"
  
   ApiAuthorizer: 
@@ -1406,13 +1417,13 @@ Resources:
       Type: "COGNITO_USER_POOLS"
 
 
-  apiGatewayDeployment:
-    Type: "AWS::ApiGateway::Deployment"
-    DependsOn:
-      - "apiGatewayRootMethod"
-    Properties:
-      RestApiId: !Ref "apiGateway"
-      StageName: !Ref "apiGatewayGetDevicesName"
+//  apiGatewayDeployment:
+//    Type: "AWS::ApiGateway::Deployment"
+//    DependsOn:
+//      - "apiGatewayRootMethod"
+//    Properties:
+//      RestApiId: !Ref "apiGateway"
+//      StageName: !Ref "apiGatewayGetDevicesName"
 
   lambdaFunction:
     Type: "AWS::Lambda::Function"

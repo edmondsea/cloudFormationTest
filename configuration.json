@@ -1,8 +1,8 @@
 {
   "Parameters" : {
     "IoTTopicName" : "iot_device_analytics",
-    "UserEmail" : "andreas.putz@mistywest.com",
-    "UserName" : "andput",
+    "UserEmail" : "sean.edmon@mistywest.com",
+    "UserName" : "edmondse",
     "apiGatewayGetDevicesName" : "get-devices",
     "apiGatewayConfigXmlName" : "config-device"
   }
