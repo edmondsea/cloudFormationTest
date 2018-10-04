@@ -3,7 +3,7 @@
     "IoTTopicName" : "iot_device_analytics",
     "UserEmail" : "andreas.putz@mistywest.com",
     "UserName" : "andput",
-    "apiGatewayGetDevicesName" : "get_devices",
-    "apiGatewayConfigXmlName" : "config_xml"
+    "apiGatewayGetDevicesName" : "get-devices",
+    "apiGatewayConfigXmlName" : "config-device"
   }
 }

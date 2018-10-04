@@ -20,12 +20,10 @@ Parameters:
     Description: "IoT Topic Name that your devices will send messages to."
   apiGatewayGetDevicesName:
     Type: "String"
-    AllowedPattern: "^[a-z0-9]+$"
-    Default: "call"
+    Default: "get-devices"
   apiGatewayConfigXmlName:
     Type: "String"
-    AllowedPattern: "^[a-z0-9]+$"
-    Default: "config_xml"
+    Default: "config-device"
   lambdaFunctionName:
     Type: "String"
     AllowedPattern: "^[a-zA-Z0-9]+[a-zA-Z0-9-]+[a-zA-Z0-9]+$"
