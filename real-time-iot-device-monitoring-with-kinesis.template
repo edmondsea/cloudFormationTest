@@ -1403,7 +1403,7 @@ Resources:
         Uri: !Sub
           - "arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${lambdaArn}/invocations"
           - lambdaArn: !GetAtt "lambdaFunction.Arn"
-      ResourceId": !Ref getDevicesResource
+      ResourceId: !Ref getDevicesResource
       RestApiId: !Ref "apiGateway"
  
   ApiAuthorizer: 
