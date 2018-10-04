@@ -31,7 +31,7 @@ Parameters:
   apiDeploymentName:
     Type: "String"
     Default: "deploy"
-    
+   
 
 Metadata:
   AWS::CloudFormation::Interface:
@@ -1455,7 +1455,7 @@ Resources:
       Action: "lambda:InvokeFunction"
       FunctionName: !GetAtt "lambdaFunction.Arn"
       Principal: "apigateway.amazonaws.com"
-      SourceArn: !Sub "arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:${apiGateway}/*/*/*/"
+      SourceArn: !Sub "arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:${apiGateway}/*/*/*"
 
   lambdaIAMRole:
     Type: "AWS::IAM::Role"
