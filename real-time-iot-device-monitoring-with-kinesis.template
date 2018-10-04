@@ -18,16 +18,14 @@ Parameters:
     MinLength: 1
     Default: "iot_device_analytics"
     Description: "IoT Topic Name that your devices will send messages to."
-  ResourcePrefix:
-    Type: String
-    MinLength: '2'
-  IotEndpoint:
-    Type: String
-    MinLength: 2
-  apiGatewayStageName:
+  apiGatewayGetDevicesName:
     Type: "String"
     AllowedPattern: "^[a-z0-9]+$"
     Default: "call"
+  apiGatewayConfigXmlName:
+    Type: "String"
+    AllowedPattern: "^[a-z0-9]+$"
+    Default: "config_xml"
   lambdaFunctionName:
     Type: "String"
     AllowedPattern: "^[a-zA-Z0-9]+[a-zA-Z0-9-]+[a-zA-Z0-9]+$"
@@ -1419,7 +1417,7 @@ Resources:
       - "apiGatewayRootMethod"
     Properties:
       RestApiId: !Ref "apiGateway"
-      StageName: !Ref "apiGatewayStageName"
+      StageName: !Ref "apiGatewayGetDevicesName"
 
   lambdaFunction:
     Type: "AWS::Lambda::Function"
@@ -1549,7 +1547,7 @@ Outputs:
       - Topic: !Ref IoTTopicName
         Region: !Ref AWS::Region
   apiGatewayInvokeURL:
-    Value: !Sub "https://${apiGateway}.execute-api.${AWS::Region}.amazonaws.com/${apiGatewayStageName}"
+    Value: !Sub "https://${apiGateway}.execute-api.${AWS::Region}.amazonaws.com/${apiGatewayGetDevicesName}"
 
   lambdaArn:
     Value: !GetAtt "lambdaFunction.Arn"

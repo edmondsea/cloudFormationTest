@@ -3,7 +3,7 @@
     "IoTTopicName" : "iot_device_analytics",
     "UserEmail" : "andreas.putz@mistywest.com",
     "UserName" : "andput",
-    "ResourcePrefix" : "iris",
-    "IotEndpoint" : "azeh5gfjxwn78.iot.us-west-2.amazonaws.com"
+    "apiGatewayGetDevicesName" : "get_devices",
+    "apiGatewayConfigXmlName" : "config_xml"
   }
 }
