@@ -1381,10 +1381,10 @@ Resources:
 
 
   getDevicesResource:
-    Type": "AWS::ApiGateway::Resource",
-    Properties":
-      RestApiId: !Ref: "apiGateway",
-      ParentId: !GetAtt apiGateway.RootResourceId,
+    Type": "AWS::ApiGateway::Resource"
+    Properties:
+      RestApiId: !Ref apiGateway
+      ParentId: !GetAtt apiGateway.RootResourceId
       PathPart: !Ref apiGatewayGetDevicesName 
 
   //TODO change to GET
