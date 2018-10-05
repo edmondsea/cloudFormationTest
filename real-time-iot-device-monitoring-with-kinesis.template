@@ -1456,7 +1456,7 @@ Resources:
         Type: "AWS_PROXY"
         Uri: !Sub
           - "arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${setConfigLambdaArn}/invocations"
-          - setConfigLambdaArn : !GetAtt "setConfiglambdaFunction.Arn"
+          - setConfigLambdaArn : !GetAtt "setConfigLambdaFunction.Arn"
       ResourceId: !Ref configDeviceResource
       RestApiId: !Ref "apiGateway"
 
@@ -1635,7 +1635,7 @@ Outputs:
 
 
   getConfigLambdaArn:
-    Value: !GetAtt "getConfiglambdaFunction.Arn"
+    Value: !GetAtt "getConfigLambdaFunction.Arn"
 
   setConfigLambdaArn:
-    Value: !GetAtt "setConfiglambdaFunction.Arn"
+    Value: !GetAtt "setConfigLambdaFunction.Arn"
