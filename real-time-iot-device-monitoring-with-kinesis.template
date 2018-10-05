@@ -31,8 +31,11 @@ Parameters:
   lambdaGetConfigName:
     Type: "String"
     AllowedPattern: "^[a-zA-Z0-9]+[a-zA-Z0-9-]+[a-zA-Z0-9]+$"
-    Default: "get-devices"
-
+    Default: "get-config"
+  lambdaSetConfigName:
+    Type: "String"
+    AllowedPattern: "^[a-zA-Z0-9]+[a-zA-Z0-9-]+[a-zA-Z0-9]+$"
+    Default: "set-config"
   apiDeploymentName:
     Type: "String"
     Default: "deploy"
@@ -1399,7 +1402,7 @@ Resources:
           - RootResourceId
       PathPart: !Ref "apiGatewayGetDevicesName"
 
-  #TODO change to GET
+  #TODO.  It's unclear if GET work
   apiGatewayGetDevicesMethod:
     Type: "AWS::ApiGateway::Method"
     Properties:
@@ -1414,6 +1417,50 @@ Resources:
           - getDevicesLambdaArn : !GetAtt "getDeviceslambdaFunction.Arn"
       ResourceId: !Ref getDevicesResource
       RestApiId: !Ref "apiGateway"
+
+
+  configDeviceResource:
+    Type: "AWS::ApiGateway::Resource"
+    Properties:
+      RestApiId: !Ref apiGateway
+      ParentId:
+        Fn::GetAtt:
+          - apiGateway
+          - RootResourceId
+      PathPart: !Ref "apiGatewayConfigXmlName"
+
+  apiGatewayGetConfigMethod:
+    Type: "AWS::ApiGateway::Method"
+    Properties:
+      AuthorizationType: COGNITO_USER_POOLS
+      AuthorizerId: !Ref ApiAuthorizer
+      HttpMethod: "GET"
+      Integration:
+        IntegrationHttpMethod: "GET"
+        Type: "AWS_PROXY"
+        Uri: !Sub
+          - "arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${getConfigLambdaArn}/invocations"
+          - getConfigLambdaArn : !GetAtt "getConfiglambdaFunction.Arn"
+      ResourceId: !Ref configDeviceResource
+      RestApiId: !Ref "apiGateway"
+
+
+  apiGatewaySetConfigMethod:
+    Type: "AWS::ApiGateway::Method"
+    Properties:
+      AuthorizationType: COGNITO_USER_POOLS
+      AuthorizerId: !Ref ApiAuthorizer
+      HttpMethod: "POST"
+      Integration:
+        IntegrationHttpMethod: "POST"
+        Type: "AWS_PROXY"
+        Uri: !Sub
+          - "arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${setConfigLambdaArn}/invocations"
+          - setConfigLambdaArn : !GetAtt "setConfiglambdaFunction.Arn"
+      ResourceId: !Ref configDeviceResource
+      RestApiId: !Ref "apiGateway"
+
+
  
   ApiAuthorizer: 
     Type: "AWS::ApiGateway::Authorizer"
@@ -1440,13 +1487,14 @@ Resources:
     Properties:
       Code:
         ZipFile: |
+            #TODO
             exports.handler = function(event, context, callback) {   
                 var functionName = context.functionName;
                 var returnStr = `Function : ${functionName} is under development`;
                 console.log(returnStr)
                 callback(null, { "statusCode" : 200, "body" : JSON.stringify((returnStr))});
             }
-      Description: "My function"
+      Description: "Lambda function for getting all of the devices registered in the cloud"
       FunctionName: !Ref "lambdaGetDevicesName"
       Handler: "index.handler"
       MemorySize: 128
@@ -1454,13 +1502,73 @@ Resources:
       Runtime: "nodejs6.10"
       Timeout: 10
 
-  lambdaApiGatewayInvoke:
+  getDevicesLambdaApiGatewayInvoke:
     Type: "AWS::Lambda::Permission"
     Properties:
       Action: "lambda:InvokeFunction"
       FunctionName: !GetAtt "getDeviceslambdaFunction.Arn"
       Principal: "apigateway.amazonaws.com"
       SourceArn: !Sub "arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:${apiGateway}/*/*/*"
+
+
+  getConfigLambdaFunction:
+    Type: "AWS::Lambda::Function"
+    Properties:
+      Code:
+        ZipFile: |
+            #TODO
+            exports.handler = function(event, context, callback) {   
+                var functionName = context.functionName;
+                var returnStr = `Function : ${functionName} is under development`;
+                console.log(returnStr)
+                callback(null, { "statusCode" : 200, "body" : JSON.stringify((returnStr))});
+            }
+      Description: "Function for getting the configuration XML"
+      FunctionName: !Ref "lambdaGetConfigName"
+      Handler: "index.handler"
+      MemorySize: 128
+      Role: !GetAtt "lambdaIAMRole.Arn"
+      Runtime: "nodejs6.10"
+      Timeout: 10
+
+  getConfigLambdaApiGatewayInvoke:
+    Type: "AWS::Lambda::Permission"
+    Properties:
+      Action: "lambda:InvokeFunction"
+      FunctionName: !GetAtt "getConfigLambdaFunction.Arn"
+      Principal: "apigateway.amazonaws.com"
+      SourceArn: !Sub "arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:${apiGateway}/*/*/*"
+
+
+
+  setConfigLambdaFunction:
+    Type: "AWS::Lambda::Function"
+    Properties:
+      Code:
+        ZipFile: |
+            #TODO
+            exports.handler = function(event, context, callback) {   
+                var functionName = context.functionName;
+                var returnStr = `Function : ${functionName} is under development`;
+                console.log(returnStr)
+                callback(null, { "statusCode" : 200, "body" : JSON.stringify((returnStr))});
+            }
+      Description: "Function for setting the configuration XML"
+      FunctionName: !Ref "lambdaSetConfigName"
+      Handler: "index.handler"
+      MemorySize: 128
+      Role: !GetAtt "lambdaIAMRole.Arn"
+      Runtime: "nodejs6.10"
+      Timeout: 10
+
+  setConfigLambdaApiGatewayInvoke:
+    Type: "AWS::Lambda::Permission"
+    Properties:
+      Action: "lambda:InvokeFunction"
+      FunctionName: !GetAtt "setConfigLambdaFunction.Arn"
+      Principal: "apigateway.amazonaws.com"
+      SourceArn: !Sub "arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:${apiGateway}/*/*/*"
+
 
   lambdaIAMRole:
     Type: "AWS::IAM::Role"
@@ -1524,3 +1632,10 @@ Outputs:
 
   getDevicesLambdaArn:
     Value: !GetAtt "getDeviceslambdaFunction.Arn"
+
+
+  getConfigLambdaArn:
+    Value: !GetAtt "getConfiglambdaFunction.Arn"
+
+  setConfigLambdaArn:
+    Value: !GetAtt "setConfiglambdaFunction.Arn"
