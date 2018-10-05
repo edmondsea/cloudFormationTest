@@ -1517,9 +1517,13 @@ Resources:
       Code:
         #TODO. Replace lambda with python.  Fill in
         ZipFile: |
-            exports.handler = function(event, context, callback) {   
+            exports.handler = function(event, context, callback) {  
                 var functionName = context.functionName;
-                var returnStr = `Function : ${functionName} is under development`;
+                
+                //example of accessing a query string param
+                var device_id = event['queryStringParameters']['device_id'];
+                var sw_version = event['queryStringParameters']['sw_version'];    
+                var returnStr = `Function : ${functionName} is under development.  Device ID  : ${device_id}, SW version  : ${sw_version} `;
                 console.log(returnStr)
                 callback(null, { "statusCode" : 200, "body" : JSON.stringify((returnStr))});
             }
@@ -1549,7 +1553,11 @@ Resources:
         ZipFile: |
             exports.handler = function(event, context, callback) {   
                 var functionName = context.functionName;
-                var returnStr = `Function : ${functionName} is under development`;
+                
+                //example of accessing a query string param
+                var device_id = event['queryStringParameters']['device_id'];
+                var sw_version = event['queryStringParameters']['sw_version'];    
+                var returnStr = `Function : ${functionName} is under development.  Device ID  : ${device_id}, SW version  : ${sw_version} `;
                 console.log(returnStr)
                 callback(null, { "statusCode" : 200, "body" : JSON.stringify((returnStr))});
             }
