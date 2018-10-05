@@ -28,6 +28,11 @@ Parameters:
     Type: "String"
     AllowedPattern: "^[a-zA-Z0-9]+[a-zA-Z0-9-]+[a-zA-Z0-9]+$"
     Default: "get-devices"
+  lambdaGetConfigName:
+    Type: "String"
+    AllowedPattern: "^[a-zA-Z0-9]+[a-zA-Z0-9-]+[a-zA-Z0-9]+$"
+    Default: "get-devices"
+
   apiDeploymentName:
     Type: "String"
     Default: "deploy"
@@ -1406,7 +1411,7 @@ Resources:
         Type: "AWS_PROXY"
         Uri: !Sub
           - "arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${getDevicesLambdaArn}/invocations"
-          - getDevicesLambdaArn: !GetAtt "getDeviceslambdaFunction.Arn"
+          - lambdaArn : !GetAtt "getDeviceslambdaFunction.Arn"
       ResourceId: !Ref getDevicesResource
       RestApiId: !Ref "apiGateway"
  
@@ -1515,7 +1520,7 @@ Outputs:
       - Topic: !Ref IoTTopicName
         Region: !Ref AWS::Region
   apiGatewayInvokeURL:
-    Value: !Sub "https://${apiGateway}.execute-api.${AWS::Region}.amazonaws.com/${apiGatewayGetDevicesName}"
+    Value: !Sub "https://${apiGateway}.execute-api.${AWS::Region}.amazonaws.com/${apiDeploymentName}/${apiGatewayGetDevicesName}"
 
   getDevicesLambdaArn:
     Value: !GetAtt "getDeviceslambdaFunction.Arn"
