@@ -1406,7 +1406,7 @@ Resources:
         Type: "AWS_PROXY"
         Uri: !Sub
           - "arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${getDevicesLambdaArn}/invocations"
-          - lambdaArn: !GetAtt "getDeviceslambdaFunction.Arn"
+          - getDevicesLambdaArn: !GetAtt "getDeviceslambdaFunction.Arn"
       ResourceId: !Ref getDevicesResource
       RestApiId: !Ref "apiGateway"
  
