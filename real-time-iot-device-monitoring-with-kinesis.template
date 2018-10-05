@@ -1486,8 +1486,8 @@ Resources:
     Type: "AWS::Lambda::Function"
     Properties:
       Code:
+        #TODO. Replace lambda with python.  Fill in
         ZipFile: |
-            #TODO
             exports.handler = function(event, context, callback) {   
                 var functionName = context.functionName;
                 var returnStr = `Function : ${functionName} is under development`;
@@ -1515,8 +1515,8 @@ Resources:
     Type: "AWS::Lambda::Function"
     Properties:
       Code:
+        #TODO. Replace lambda with python.  Fill in
         ZipFile: |
-            #TODO
             exports.handler = function(event, context, callback) {   
                 var functionName = context.functionName;
                 var returnStr = `Function : ${functionName} is under development`;
@@ -1545,8 +1545,8 @@ Resources:
     Type: "AWS::Lambda::Function"
     Properties:
       Code:
+        #TODO. Replace lambda with python.  Fill in
         ZipFile: |
-            #TODO
             exports.handler = function(event, context, callback) {   
                 var functionName = context.functionName;
                 var returnStr = `Function : ${functionName} is under development`;
